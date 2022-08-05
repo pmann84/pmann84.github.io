@@ -13,7 +13,7 @@ layout: page
 <br />
 <h1>Recent Posts</h1>
 {% for post in site.posts offset:1 limit:5 %}
-... Show the next two posts ...
+<div><a href="{{ post.url }}">{{ post.title }}</a></div>
 {% endfor %}
 
 <h1>Categories</h1>

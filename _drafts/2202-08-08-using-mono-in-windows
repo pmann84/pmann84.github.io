@@ -1,0 +1,22 @@
+---
+layout: post
+title:  "Building Mono on Windows"
+date:   2022-07-28 16:29:05 +0100
+categories: General
+tags: mono, c#, windows, scripting
+---
+
+## What is this guide?
+This will tell you how to build mono binaries, for consumption as an installed library or to commit directly to your project. This won't include using it as a git submodule etc
+
+## Prequisites
+- Visual Studio (I used 2019 but it seems 2022 is supported as well)
+
+## How to build it
+- Checkout the mono repository
+- Checkout the latest release (via the tag) - dont worry about the detached head state - we are going to just use the binaries directly
+- Open the solution file in `msvc/mono.sln`
+- Select `Release`, `x64` build (or the appropriate architecture for your project)
+- Build the entire solution - you need to do this so that it copies the includes into the `msvc` folder. Really we should only need the output from either the `libmono-dynamic` (for dynamic linking - dlls) or `libmono-static` (for static linking) located in the `Runtime` folder in the solution explorer. Note that the `libmono-dyamic` project is the one that actually copies the includes so you really need both of these even if you want to link statically
+- Note down where the binaries were built, should be something like `msvc\build\sgen\x64\lib\Release or `msvc\build\sgen\lib\Debug`
+- Note down where the includes are also as we will need them too, should be somewhere like `msvc\include` - note it won't be in the `build` directory
